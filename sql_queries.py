@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS songs
     title varchar, 
     artist_id varchar NOT NULL,
     year int,
-    duration int
+    duration double precision
 );
 """)
 
@@ -109,13 +109,9 @@ time_table_insert = ("""
 # FIND SONGS
 
 song_select = ("""
-    select s.song_id, s.artist_id
-        from songs s
-    inner join artists a
-        on a.artist_id=s.artist_id
-    where s.title=%s
-        and a.name=%s
-        and s.duration=%s;
+    SELECT songs.song_id, artists.artist_id FROM songs 
+    JOIN artists ON  songs.artist_id=artists.artist_id
+    WHERE songs.title=%s AND artists.name=%s AND songs.duration=%s
 """)
 
 # QUERY LISTS
